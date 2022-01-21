@@ -8,30 +8,26 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 60
+
+Parameters:
+  Table:
+    Type: String
+    Default: App
+  Region:
+    Type: String
+    Default: us-east-1
+  AWSEnv:
+    Type: String
+    Default: AWS
 
 Resources:
-
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-    Properties:
-      CodeUri: hello_world/
-      Handler: app.lambda_handler
-      Runtime: python3.8
-      Architectures:
-        - x86_64
-      Events:
-        HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /hello
-            Method: get
 
   CreateUserFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: users/create_user
-      Handler: app.lambda_handler
+      CodeUri: ./ 
+      Handler: users/create_user/app.lambda_handler
       Runtime: python3.8
       Architectures:
         - x86_64
@@ -45,8 +41,8 @@ Resources:
   GetUserFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: users/get_user
-      Handler: app.lambda_handler
+      CodeUri: ./
+      Handler: users/get_user/app.lambda_handler
       Runtime: python3.8
       Architectures:
         - x86_64
@@ -60,8 +56,8 @@ Resources:
   ListUsersFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: users/list_users
-      Handler: app.lambda_handler
+      CodeUri: ./ 
+      Handler: users/list_users/app.lambda_handler
       Runtime: python3.8
       Architectures:
         - x86_64
@@ -75,8 +71,8 @@ Resources:
   UpdateUserFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: users/update_user
-      Handler: app.lambda_handler
+      CodeUri: ./
+      Handler: users/update_user/app.lambda_handler
       Runtime: python3.8
       Architectures:
         - x86_64
@@ -90,8 +86,8 @@ Resources:
   DeleteUserFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: users/delete_user
-      Handler: app.lambda_handler
+      CodeUri: ./
+      Handler: users/delete_user/app.lambda_handler
       Runtime: python3.8
       Architectures:
         - x86_64
@@ -101,7 +97,6 @@ Resources:
           Properties:
             Path: /users/{id}
             Method: delete
-
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
